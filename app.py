@@ -2,10 +2,13 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-import pathlib
-plt = platform.system()
-if plt == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
+# import pathlib
+# plt = platform.system()
+# if plt == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
 
+import pathlib
+temp = pathlib.PosixPath
+pathlib.PosixPath = pathlib.WindowsPath
 
 app = Flask(__name__)
 model = pickle.load(open('nlp.pkl', 'rb'))
