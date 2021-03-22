@@ -2,6 +2,9 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
+import pathlib
+plt = platform.system()
+if plt == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
 
 
 app = Flask(__name__)
