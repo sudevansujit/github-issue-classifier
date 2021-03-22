@@ -22,7 +22,7 @@ def predict():
 
     output = round(prediction, 4)
 
-    return render_template('index.html', prediction_text='Documntation Prediction Score is {}'.format(output))
+    return render_template('index.html', prediction_text='Documentation Prediction Score is {}'.format(output))
     
 
 
