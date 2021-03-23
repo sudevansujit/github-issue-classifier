@@ -1,0 +1,49 @@
+preprocess:
+  cmd: python -m spacy run preprocess
+  script:
+    - python scripts/preprocess.py assets/docs_issues_training.jsonl corpus/docs_issues_training.spacy
+    - python scripts/preprocess.py assets/docs_issues_eval.jsonl corpus/docs_issues_eval.spacy
+  deps:
+    - path: assets/docs_issues_training.jsonl
+      md5: ebd254a77132b9018fdd581e95aef549
+    - path: assets/docs_issues_eval.jsonl
+      md5: ab56fc1828403bffaf163f3c540e473f
+    - path: scripts/preprocess.py
+      md5: cbdd75bac616048807f60b690c157f1e
+  outs:
+    - path: corpus/docs_issues_training.spacy
+      md5: 7f0401140cdd16fbe6cc1514a535b08e
+    - path: corpus/docs_issues_eval.spacy
+      md5: c03f6d785f89018a210c63419296b8f6
+  spacy_version: 3.0.5
+  spacy_git_version: 53a3b967a
+train:
+  cmd: python -m spacy run train
+  script:
+    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/docs_issues_training.spacy
+      --paths.dev corpus/docs_issues_eval.spacy
+  deps:
+    - path: corpus/docs_issues_training.spacy
+      md5: 7f0401140cdd16fbe6cc1514a535b08e
+    - path: corpus/docs_issues_eval.spacy
+      md5: c03f6d785f89018a210c63419296b8f6
+  outs:
+    - path: training/model-best
+      md5: a55e40ef09600eb815ac764c20660dd6
+  spacy_version: 3.0.5
+  spacy_git_version: 53a3b967a
+evaluate:
+  cmd: python -m spacy run evaluate
+  script:
+    - python -m spacy evaluate training/model-best corpus/docs_issues_eval.spacy --output
+      training/metrics.json
+  deps:
+    - path: corpus/docs_issues_eval.spacy
+      md5: c03f6d785f89018a210c63419296b8f6
+    - path: training/model-best
+      md5: a55e40ef09600eb815ac764c20660dd6
+  outs:
+    - path: training/metrics.json
+      md5: 50bc229e65f0c84fcd4b3b19728418da
+  spacy_version: 3.0.5
+  spacy_git_version: 53a3b967a
