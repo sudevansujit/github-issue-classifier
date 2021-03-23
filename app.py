@@ -2,10 +2,10 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-from pathlib import Path, PureWindowsPath, PurePath, PurePosixPath, WindowsPath, PosixPath
-fname = "nlp.pkl"
-# fpath = PureWindowsPath(fname)
-fpath = Path(fname)
+# from pathlib import Path, PureWindowsPath, PurePath, PurePosixPath, WindowsPath, PosixPath
+# fname = "nlp.pkl"
+# # fpath = PureWindowsPath(fname)
+# fpath = Path(fname)
 
 
 
@@ -17,11 +17,15 @@ fpath = Path(fname)
 # temp = pathlib.PosixPath
 # pathlib.PosixPath = pathlib.WindowsPath
 
+# app = Flask(__name__)
+# with open(fpath, "rb") as fd:
+# # Works in Winbug$ only
+#     model = pkl.load(fd)
+# # model = pickle.load(open('nlp.pkl', 'rb'))
+
+
 app = Flask(__name__)
-with open(fpath, "rb") as fd:
-# Works in Winbug$ only
-    model = pkl.load(fd)
-# model = pickle.load(open('nlp.pkl', 'rb'))
+model = pickle.load(open('nlp.pkl', 'rb'))
 
 @app.route('/')
 def home():
