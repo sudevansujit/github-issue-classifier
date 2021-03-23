@@ -14,10 +14,14 @@
 <body>
  <div class="login">
 	<h1>GitHub Issue Classifier</h1>
+        <h2>Predicting whether a GitHub issue is about documentation</h2>
+        <h3>Text Classification - This project uses spaCy with annotated data from Prodigy</h3>
+        <h3>To train a binary text classifier with exclusive classes to predict whether a GitHub issue title is about documentation.</h3>
 
      <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="Git Issue" placeholder="Type Text Here" required="required" />
+    	<input type="text" name="Git Issue " placeholder="Type Issue Here" required="required" />
+         
  
 
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
